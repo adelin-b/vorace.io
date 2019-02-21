@@ -10,18 +10,13 @@ The ghosts have a very limited vision so it make the hunt fair. But it get scary
 
 ## Getting Started
 ```
+git clone https://github.com/adberard/Vorace.io.git
+cd Vorace.io
 yarn install
 yarn start
 ```
 
 And then open [localhost](http://localhost:3000/)
-
-### Installing
-
-```
-yarn install
-yarn start
-```
 
 ## Authors
 
