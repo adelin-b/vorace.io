@@ -1,4 +1,3 @@
-"use strict";
 var express = require('express');
 var app = express();
 var http = require('http').Server(app);
@@ -420,6 +419,7 @@ function join_game(user, g) {
     if (g.players.length != g.max_players)
         return;
     run_game(g);
+  console.log('Starting game.id: ', g.id);
     games.unshift(new Game());
 }
 
@@ -498,6 +498,7 @@ function get_game_by_user_id(id) {
         if (games[i].get_user_by_id(id) != null)
             return games[i];
     }
+    console.log(`Room not found for ${id}` );
     return null;
 }
 
@@ -554,8 +555,9 @@ io.on('connection', function(socket) {
 
     socket.on('play', function(type) {
         game = get_game_by_user_id(socket.id);
+        console.log('game Id: ', game);
         if (user != null && game == null) {
-            console.log(user.pseudo + " (" + user.socket.id + ") joined a game");
+            console.log(user.pseudo + " (" + user.socket.id + ") joined "+ game +" game");
             user.view = 3;
             if (user == "create") {
                 create_private_game(5);
@@ -564,7 +566,9 @@ io.on('connection', function(socket) {
             if (game == null)
                 game = games[0];
             join_game(user, game);
+          console.log(`joined game`)
             game = get_game_by_user_id(socket.id);
+          console.log('game: ', game.id);
 
         }
     });

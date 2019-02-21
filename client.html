@@ -211,9 +211,9 @@
 					var img = new Image();
 					var name = tab[i][0];
 					img.src = tab[i][1];
-					console.log('create :' + img.src);
+          // console.log('create :' + img.src);
 					img.onload = function() {
-						console.log('load : ' + this.src);
+						// console.log('load : ' + this.src);
 					};
 					images[name] = img;
 				}
@@ -282,9 +282,9 @@ vorace.Move(11 * tile_size, 10 * tile_size, 125);
 				var img = new Image();
 				var name = tab[i][0];
 				img.src = tab[i][1];
-				console.log('create :' + img.src);
+				// console.log('create :' + img.src);
 				img.onload = function() {
-					console.log('load : ' + this.src);
+					// console.log('load : ' + this.src);
 				};
 				images[name] = img;
 			}
@@ -357,11 +357,11 @@ vorace.Move(11 * tile_size, 10 * tile_size, 125);
 			clear_game();
 			document.getElementById("users").innerHTML = "";
 			for (p of list.players) {
-				if (p.id == socket.id)
+				if (p.id == socket.id.substring(2))
 					ui_add_user(p, true);
 			}
 			for (p of list.players) {
-				if (p.id != socket.id)
+				if (p.id != socket.id.substring(2))
 					ui_add_user(p, false);
 			}
 			//	ui_add_user(list['players'][i]);
@@ -443,13 +443,13 @@ vorace.Move(11 * tile_size, 10 * tile_size, 125);
 
 
 		function autoSizeText() {
-			console.log("resized");
+			// console.log("resized");
 			var titles = document.querySelectorAll("div > h1");
-			console.log(titles);
+			// console.log(titles);
 			for (title of titles){
 				title.style.fontSize = title.parentElement.offsetWidth / title.innerHTML.length * 1.5 + "px";
 				//title.style.fontSize = "1px";
-				console.log(title.parentElement.offsetWidth , title.innerHTML.length);
+				// console.log(title.parentElement.offsetWidth , title.innerHTML.length);
 			}
 		}
 
@@ -495,9 +495,13 @@ vorace.Move(11 * tile_size, 10 * tile_size, 125);
 		}
 
 		socket.on('start', function(list) {
+		  console.log('list: ', list);
+		  console.log('socket.id: ', socket.id.substring(2));
 			for (i = 0; i < list['players'].length; i++) {
-				if (list['players'][i].id == socket.id) {
+			  console.log(`list['players'][i].id: `, list['players'][i].id);
+				if (list['players'][i].id == socket.id.substring(2)) {
 					my = new User(list['players'][i].id, list['players'][i].pseudo, list['players'][i].x, list['players'][i].y, list['players'][i].role);
+					console.log('my: ', my);
 					if (my.role == "V") {
 						my.sprite = new Sprite("vorace");
 						my.sprite.current_anim = "nice_down";
@@ -510,6 +514,7 @@ vorace.Move(11 * tile_size, 10 * tile_size, 125);
 					layer_players.AddObjet(my.sprite);
 				} else {
 					enemy.unshift(new User(list['players'][i].id, list['players'][i].pseudo, list['players'][i].x, list['players'][i].y, list['players'][i].role));
+					console.log('enemy: ', enemy);
 					if (enemy[0].role == "V") {
 						enemy[0].sprite = new Sprite("vorace");
 						enemy[0].sprite.current_anim = "nice_down";
@@ -570,7 +575,7 @@ vorace.Move(11 * tile_size, 10 * tile_size, 125);
 					for (e of enemy)
 						if (e.role == "F" && v.y == e.y && v.x == e.x)
 							e.sprite.current_anim = "kill";
-				console.log(my);
+				// console.log(my);
 				}, 50);
 				setTimeout(function() {
 					clearInterval(dead_interval);
