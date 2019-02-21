@@ -18,10 +18,6 @@ And then open [localhost](http://localhost:3000/)
 
 ### Installing
 
-A step by step series of examples that tell you how to get a development env running
-
-Say what the step will be
-
 ```
 yarn install
 yarn start
@@ -30,7 +26,7 @@ yarn start
 ## Authors
 
 * **adberard** [adberard](https://github.com/adberard)
-* **vmontagnoli** [montagnoli](https://github.com/montagnoli)
+* **montagnoli** [montagnoli](https://github.com/montagnoli)
 
 
 ## License
